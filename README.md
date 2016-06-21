@@ -1,4 +1,4 @@
-# Spree Wishlist
+# Solidus Wishlist
 
 [![CircleCI](https://circleci.com/gh/deseretbook/solidus_wishlist.svg?style=svg)](https://circleci.com/gh/deseretbook/solidus_wishlist)
 
