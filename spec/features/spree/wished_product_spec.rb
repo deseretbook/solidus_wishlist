@@ -38,7 +38,7 @@ RSpec.feature 'Wished Product', :js do
     end
 
     scenario 'when user chooses different quantity of item' do
-      wishlist = create(:wishlist, user: user)
+      create(:wishlist, user: user)
 
       visit spree.product_path(product)
       fill_in "quantity", with: "15"
@@ -63,7 +63,7 @@ RSpec.feature 'Wished Product', :js do
 
       wp_path = spree.wished_product_path(wished_product)
       delete_links = find(:xpath, '//table[@id="wishlist"]/tbody').all(:xpath, './/tr/td/p/a')
-      delete_link = delete_links.select { |link| link[:href] == wp_path }.first
+      delete_link = delete_links.select {|link| link[:href] == wp_path }.first
       delete_link.click
 
       expect(page).not_to have_content wished_product.variant.product.name
@@ -73,7 +73,7 @@ RSpec.feature 'Wished Product', :js do
       wished_products = [
         create(:wished_product, wishlist: wishlist),
         create(:wished_product, wishlist: wishlist),
-        create(:wished_product, wishlist: wishlist)
+        create(:wished_product, wishlist: wishlist),
       ]
       wished_product = wished_products.delete_at(Random.rand(wished_products.length))
 
@@ -81,9 +81,9 @@ RSpec.feature 'Wished Product', :js do
 
       wp_path = spree.wished_product_path(wished_product)
       delete_links = find(:xpath, '//table[@id="wishlist"]/tbody').all(:xpath, './/tr/td/p/a')
-      delete_link = delete_links.select { |link| link[:href] == wp_path }.first
+      delete_link = delete_links.select {|link| link[:href] == wp_path }.first
       delete_link.click
-      pattern = Regexp.new(wished_products.map { |wp| wp.variant.product.name }.join('.*'))
+      pattern = Regexp.new(wished_products.map {|wp| wp.variant.product.name }.join('.*'))
 
       expect(page).not_to have_content wished_product.variant.product.name
       expect(page).to have_content pattern
