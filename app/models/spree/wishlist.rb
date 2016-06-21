@@ -35,6 +35,6 @@ class Spree::Wishlist < ActiveRecord::Base
 
   def set_access_hash
     random_string = SecureRandom.hex(16)
-    self.access_hash = Digest::SHA1.hexdigest("--#{user_id}--#{random_string}--#{Time.now}--")
+    self.access_hash = Digest::SHA1.hexdigest("--#{user_id}--#{random_string}--#{Time.zone.now}--")
   end
 end
