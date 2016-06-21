@@ -1,4 +1,4 @@
-module SpreeWishlist
+module SolidusWishlist
   module_function
 
   # Returns the version of the currently loaded SpreeWishlist as a
@@ -8,8 +8,8 @@ module SpreeWishlist
   end
 
   module VERSION
-    MAJOR = 2
-    MINOR = 2
+    MAJOR = 0
+    MINOR = 0
     TINY  = 0
     PRE   = nil
 

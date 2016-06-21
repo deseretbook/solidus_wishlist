@@ -1,6 +1,6 @@
-module SpreeWishlist
+module SolidusWishlist
   class Engine < Rails::Engine
-    engine_name 'spree_wishlist'
+    engine_name 'solidus_wishlist'
 
     config.autoload_paths += %W(#{config.root}/lib)
 

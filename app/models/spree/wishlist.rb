@@ -18,7 +18,7 @@ class Spree::Wishlist < ActiveRecord::Base
   end
 
   def can_be_read_by?(user)
-    !self.is_private? || user == self.user
+    !is_private? || user == self.user
   end
 
   def is_default=(value)
@@ -28,13 +28,13 @@ class Spree::Wishlist < ActiveRecord::Base
   end
 
   def is_public?
-    !self.is_private?
+    !is_private?
   end
 
   private
 
   def set_access_hash
     random_string = SecureRandom.hex(16)
-    self.access_hash = Digest::SHA1.hexdigest("--#{user_id}--#{random_string}--#{Time.now}--")
+    self.access_hash = Digest::SHA1.hexdigest("--#{user_id}--#{random_string}--#{Time.zone.now}--")
   end
 end
