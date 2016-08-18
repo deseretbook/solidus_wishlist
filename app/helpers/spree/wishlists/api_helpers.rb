@@ -1,10 +1,9 @@
 module Spree
   module Wishlists
     module ApiHelpers
-
       ATTRIBUTES = [
         :wishlist_attributes,
-        :wished_product_attributes
+        :wished_product_attributes,
       ]
 
       mattr_reader *ATTRIBUTES
@@ -16,7 +15,6 @@ module Spree
       @@wished_product_attributes = [
         :id, :variant_id, :wishlist_id, :remark
       ]
-
     end
   end
 end

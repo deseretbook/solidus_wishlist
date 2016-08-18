@@ -15,13 +15,13 @@ class Spree::WishedProduct < ActiveRecord::Base
   private
 
   def variant_exists
-    if Spree::Variant.where(id: self.variant_id).count == 0
+    if Spree::Variant.where(id: variant_id).count.zero?
       errors.add(:variant, 'invalid variant id')
     end
   end
 
   def wishlist_exists
-    if Spree::Wishlist.where(id: self.wishlist_id).count == 0
+    if Spree::Wishlist.where(id: wishlist_id).count.zero?
       errors.add(:wishlist, 'invalid wishlist id')
     end
   end

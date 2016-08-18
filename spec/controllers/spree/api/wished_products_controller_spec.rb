@@ -8,13 +8,12 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
   end
 
   context '#create' do
-
     it 'must permit add product to the default wishlist' do
       post "/api/wished_products?token=#{user.spree_api_key}", {
         wished_product: {
           variant_id: product.id,
-          wishlist_id: user.wishlist.id
-        }
+          wishlist_id: user.wishlist.id,
+        },
       }
       expect(response).to be_success
       expect(json['wished_products'].length).to eq(1)
@@ -27,9 +26,9 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       post "/api/wished_products?token=#{admin_user.spree_api_key}", {
         wished_product: {
           variant_id: product.id,
-          wishlist_id: user.wishlist.id
+          wishlist_id: user.wishlist.id,
         },
-        user_id: user.id
+        user_id: user.id,
       }
       expect(response).to be_success
 
@@ -44,9 +43,9 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       post "/api/wished_products?token=#{not_admin_user.spree_api_key}", {
         wished_product: {
           variant_id: product.id,
-          wishlist_id: user.wishlist.id
+          wishlist_id: user.wishlist.id,
         },
-        user_id: user.id
+        user_id: user.id,
       }
       expect(response).to_not be_success
     end
@@ -57,8 +56,8 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       post "/api/wished_products?token=#{user.spree_api_key}", {
         wished_product: {
           variant_id: product.id,
-          wishlist_id: other_wishlist.id
-        }
+          wishlist_id: other_wishlist.id,
+        },
       }
       expect(response).to be_success
       expect(Spree::WishedProduct.count).to eq(1)
@@ -69,12 +68,11 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       post "/api/wished_products?token=#{user.spree_api_key}", {
         wished_product: {
           nodata_id: product.id,
-          wishlist_id: user.wishlist.id
-        }
+          wishlist_id: user.wishlist.id,
+        },
       }
       expect(response).not_to be_success
     end
-
   end
 
   context '#update' do
@@ -84,7 +82,7 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
     before do
       bad_user.generate_spree_api_key!
       @wished_product = wishlist.wished_products.create( {
-        variant_id: product.id
+        variant_id: product.id,
       })
     end
 
@@ -92,8 +90,8 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       put "/api/wished_products/#{@wished_product.id}?token=#{user.spree_api_key}", {
         wished_product: {
           variant_id: new_product.id,
-          wishlist_id: user.wishlist.id
-        }
+          wishlist_id: user.wishlist.id,
+        },
       }
       expect(response).to be_success
       expect(json['wished_products'][0]['variant_id']).to eq(new_product.id)
@@ -103,8 +101,8 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       put "/api/wished_products/#{@wished_product.id}?token=#{user.spree_api_key}", {
         wished_product: {
           variant_id: 9999,
-          wishlist_id: user.wishlist.id
-        }
+          wishlist_id: user.wishlist.id,
+        },
       }
       expect(response.status).to eq(422)
     end
@@ -113,12 +111,11 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       put "/api/wished_products/#{@wished_product.id}?token=#{bad_user.spree_api_key}", {
         wished_product: {
           variant_id: 9999,
-          wishlist_id: user.wishlist.id
-        }
+          wishlist_id: user.wishlist.id,
+        },
       }
       expect(response.status).to eq(401)
     end
-
   end
 
   context '#destroy' do
@@ -128,20 +125,19 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
       bad_user.generate_spree_api_key!
 
       @wishes = []
-      (0..3).each do
+      4.times do
         @wishes << create(:variant)
       end
 
       @wished_products = []
       @wishes.each do |wish|
         @wished_products << wishlist.wished_products.create( {
-          variant_id: wish.id
+          variant_id: wish.id,
         })
       end
     end
 
     it 'must permit remove a product from the list' do
-
       expect(user.wishlist.wished_products.count).to eq(@wished_products.count)
 
       delete "/api/wished_products/#{@wished_products.last.id}?token=#{user.spree_api_key}"
@@ -150,13 +146,10 @@ RSpec.describe Spree::Api::WishedProductsController, type: :request do
     end
 
     it 'can not permit remove products from another user' do
-
       expect(user.wishlist.wished_products.count).to eq(@wished_products.count)
 
       delete "/api/wished_products/#{@wished_products.last.id}?token=#{bad_user.spree_api_key}"
       expect(response.status).to eq(401)
     end
-
   end
-
 end

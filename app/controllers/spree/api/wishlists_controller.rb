@@ -1,9 +1,7 @@
 module Spree
   module Api
-
     class WishlistsController < Spree::Api::BaseController
-
-      before_filter :find_wishlist, :only => [:destroy, :show, :update, :edit]
+      before_action :find_wishlist, only: [:destroy, :show, :update, :edit]
 
       helper Spree::Wishlists::ApiHelpers
 
@@ -22,14 +20,14 @@ module Spree
         @wishlist.save
 
         if @wishlist.persisted?
-          respond_with(@wishlist, :status => 201, :default_template => :show)
+          respond_with(@wishlist, status: 201, default_template: :show)
         else
           invalid_resource!(@wishlist)
         end
       end
 
       def show
-        expires_in 15.minutes, :public => true
+        expires_in 15.minutes, public: true
         respond_with(@wishlist)
       end
 
@@ -38,7 +36,7 @@ module Spree
         @wishlist.update_attributes wishlist_attributes
 
         if @wishlist.errors.empty?
-          respond_with(@wishlist, :status => 200, :default_template => :show)
+          respond_with(@wishlist, status: 200, default_template: :show)
         else
           invalid_resource!(@wishlist)
         end
@@ -47,7 +45,7 @@ module Spree
       def destroy
         authorize! :destroy, @wishlist
         @wishlist.destroy
-        respond_with(@wishlist, :status => 204)
+        respond_with(@wishlist, status: 204)
       end
 
       private
@@ -59,7 +57,7 @@ module Spree
       def find_wishlist
         @wishlist = Spree::Wishlist.find_by_access_hash!(params[:id])
       end
-      
+
       # to allow managing of other users' list by admins
       def current_wishlist_user
         @current_wishlist_user ||= begin
@@ -73,6 +71,5 @@ module Spree
         end
       end
     end # eoc
-
   end
 end

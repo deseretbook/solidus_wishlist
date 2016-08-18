@@ -1,8 +1,6 @@
 module Spree
   module Api
-
     class WishedProductsController < Spree::Api::BaseController
-
       helper Spree::Wishlists::ApiHelpers
 
       def create
@@ -28,7 +26,7 @@ module Spree
 
         @wishlist.reload
         if @wished_product.persisted?
-          respond_with(@wishlist, :status => 201, :default_template => :show)
+          respond_with(@wishlist, status: 201, default_template: :show)
         else
           invalid_resource!(@wished_product)
         end
@@ -41,7 +39,7 @@ module Spree
         @wishlist = @wished_product.wishlist
 
         if @wished_product.errors.empty?
-          respond_with(@wished_product, :status => 200, :default_template => :show)
+          respond_with(@wished_product, status: 200, default_template: :show)
         else
           invalid_resource!(@wished_product)
         end
@@ -51,7 +49,7 @@ module Spree
         @wished_product = Spree::WishedProduct.find(params[:id])
         authorize! :destroy, @wished_product
         @wished_product.destroy
-        respond_with(@wished_product, :status => 204)
+        respond_with(@wished_product, status: 204)
       end
 
       private
@@ -59,9 +57,6 @@ module Spree
       def wished_product_attributes
         params.require(:wished_product).permit(:variant_id, :wishlist_id, :remark)
       end
-
-
     end # eoc
-
   end
 end
