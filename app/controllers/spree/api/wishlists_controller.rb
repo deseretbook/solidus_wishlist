@@ -55,7 +55,7 @@ module Spree
       end
 
       def find_wishlist
-        @wishlist = Spree::Wishlist.find_by_access_hash!(params[:id])
+        @wishlist = Spree::Wishlist.find_by!(access_hash: params[:id])
       end
 
       # to allow managing of other users' list by admins

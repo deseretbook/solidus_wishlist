@@ -14,7 +14,7 @@ class Spree::Wishlist < ActiveRecord::Base
   end
 
   def self.get_by_param(param)
-    Spree::Wishlist.find_by_access_hash(param)
+    Spree::Wishlist.find_by(access_hash: param)
   end
 
   def can_be_read_by?(user)
