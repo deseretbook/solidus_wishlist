@@ -13,6 +13,14 @@ AllCops:
     - '**/install/*'
   TargetRubyVersion: 2.3
 
+# Block length was set to 25, we currently don't have a rule for this
+BlockLength:
+  Enabled: false
+
+# Changing this was causing the route not found error in specs
+HttpPositionalArguments:
+  Enabled: false
+
 # Don't require Ruby 2.3 "frozen_string_literal" pragma comment, for now.
 Style/FrozenStringLiteralComment:
   Enabled: false

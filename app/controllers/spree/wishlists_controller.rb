@@ -58,6 +58,6 @@ class Spree::WishlistsController < Spree::StoreController
 
   # Isolate this method so it can be overwritten
   def find_wishlist
-    @wishlist = Spree::Wishlist.find_by_access_hash!(params[:id])
+    @wishlist = Spree::Wishlist.find_by!(access_hash: params[:id])
   end
 end
