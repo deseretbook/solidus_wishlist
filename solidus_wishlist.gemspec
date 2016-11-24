@@ -37,4 +37,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'guard-rspec'
   s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'rails-controller-testing'
 end

@@ -14,6 +14,7 @@ require 'rspec/rails'
 require 'ffaker'
 require 'shoulda-matchers'
 require 'pry'
+require 'rails-controller-testing'
 
 Dir[File.join(File.dirname(__FILE__), 'support/**/*.rb')].each {|file| require file }
 
@@ -30,5 +31,10 @@ RSpec.configure do |config|
     expectations.syntax = :expect
   end
 
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, :type => type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+    config.include ::Rails::Controller::Testing::Integration, :type => type
+  end
   config.include Requests::JsonHelpers, type: :request
 end
