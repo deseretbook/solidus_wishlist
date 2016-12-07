@@ -2,6 +2,7 @@ class Spree::WishlistsController < Spree::StoreController
   helper 'spree/products'
 
   before_action :find_wishlist, only: [:destroy, :show, :update, :edit]
+  before_action :restrict_unauthenticated, except: [:show, :default]
 
   respond_to :html
   respond_to :js, only: :update
@@ -12,7 +13,7 @@ class Spree::WishlistsController < Spree::StoreController
   end
 
   def index
-    @wishlists = spree_current_user.wishlists
+    load_wishlists
     respond_with(@wishlist)
   end
 
@@ -30,7 +31,7 @@ class Spree::WishlistsController < Spree::StoreController
   end
 
   def default
-    @wishlist = spree_current_user.wishlist
+    load_wishlist
     respond_with(@wishlist) do |format|
       format.html { render :show }
     end
@@ -52,8 +53,20 @@ class Spree::WishlistsController < Spree::StoreController
 
   private
 
+  def restrict_unauthenticated
+    redirect_to spree.root_path unless spree_current_user
+  end
+
   def wishlist_attributes
     params.require(:wishlist).permit(:name, :is_default, :is_private)
+  end
+
+  def load_wishlist
+    @wishlist = spree_current_user.wishlist
+  end
+
+  def load_wishlists
+    @wishlists = spree_current_user.wishlists
   end
 
   # Isolate this method so it can be overwritten
