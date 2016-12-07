@@ -38,6 +38,26 @@ RSpec.feature 'Wishlist', :js do
     end
   end
 
+  context 'show' do
+    given!(:user) { create(:user) }
+
+    scenario 'session-based wishlist moves to logged in user' do
+      product = create(:product)
+      visit spree.product_path(product)
+      click_button 'Add to wishlist'
+
+      wishlist = Spree::Wishlist.first
+
+      expect(page).to have_content wishlist.name
+
+      sign_in_as! user
+      visit spree.wishlist_path(wishlist)
+
+      expect(user.wishlist).to eq wishlist
+      expect(Spree::Wishlist.count).to eq(1)
+    end
+  end
+
   context 'with existing wishlist' do
     given(:wishlist) { create(:wishlist) }
     given(:user)     { wishlist.user }

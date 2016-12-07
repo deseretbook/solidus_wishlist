@@ -17,6 +17,11 @@ class Spree::Wishlist < ActiveRecord::Base
     Spree::Wishlist.find_by(access_hash: param)
   end
 
+  def self.get_or_create_by_param(access_hash, options = {})
+    Spree::Wishlist.get_by_param(access_hash) ||
+      Spree::Wishlist.create(name: Spree.t(:default_wishlist_name), is_default: true)
+  end
+
   def can_be_read_by?(user)
     !is_private? || user == self.user
   end
