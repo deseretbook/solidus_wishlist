@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_path  = 'lib'
   s.requirements << 'none'
 
-  s.add_runtime_dependency 'solidus_core', [">= 1.0.0", "< 2"]
+  s.add_runtime_dependency 'solidus_core', [">= 1.0.0", "< 3"]
 
   s.add_development_dependency 'factory_girl'
   s.add_development_dependency 'ffaker'

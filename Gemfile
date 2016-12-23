@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-gem 'solidus', '~> 1.4.0'
-gem 'solidus_auth_devise'
+gem 'solidus', '~> 2.0.0'
 gem 'deface'
+gem 'solidus_auth_devise'
 
 group :development, :test do
   # Call `binding.pry` anywhere in the code to stop execution and get a debugger console.
