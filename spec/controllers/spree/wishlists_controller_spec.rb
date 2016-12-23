@@ -21,25 +21,25 @@ RSpec.describe Spree::WishlistsController, type: :controller do
 
   context '#edit' do
     it 'assigns the requested wishlist as @wishlist' do
-      get :edit, id: wishlist
+      get :edit, params: { id: wishlist }
       expect(assigns(:wishlist)).to eq wishlist
     end
   end
 
   context '#update' do
     it 'assigns @wishlist' do
-      put :update, id: wishlist, wishlist: attributes
+      put :update, params: { id: wishlist, wishlist: attributes }
       expect(assigns(:wishlist)).to eq wishlist
     end
 
     context 'when the wishlist updates successfully' do
       it 'redirects to the updated wishlist' do
-        put :update, id: wishlist, wishlist: attributes
+        put :update, params: { id: wishlist, wishlist: attributes }
         expect(response).to redirect_to wishlist
       end
 
       it 'sets the attributes of @wishlist according to attributes' do
-        put :update, id: wishlist, wishlist: attributes
+        put :update, params: {  id: wishlist, wishlist: attributes }
         attributes.each do |attr_name, value|
           expect(assigns(:wishlist).send(attr_name)).to eq value
         end
@@ -49,7 +49,7 @@ RSpec.describe Spree::WishlistsController, type: :controller do
     context 'when the wishlist fails to update' do
       it 'raise error' do
         expect {
-          put :update, id: wishlist, wishlist: {}
+          put :update, params: { id: wishlist, wishlist: {} }
         }.to raise_error
       end
     end
@@ -57,14 +57,14 @@ RSpec.describe Spree::WishlistsController, type: :controller do
 
   context '#show' do
     it 'assigns the requested wishlist as @wishlist' do
-      get :show, id: wishlist
+      get :show, params: { id: wishlist }
       expect(assigns(:wishlist)).to eq wishlist
     end
 
     # Regression test for issue #68
     it 'raises record not found on invalid params' do
       expect {
-        get :show, id: 'nope'
+        get :show, params: { id: 'nope' }
       }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
@@ -88,29 +88,29 @@ RSpec.describe Spree::WishlistsController, type: :controller do
 
   context '#create' do
     it 'assigns @wishlist' do
-      post :create, wishlist: attributes
+      post :create, params: { wishlist: attributes }
       expect(assigns(:wishlist)).to be_a Spree::Wishlist
     end
 
     it 'sets the current user as the user of @wishlist' do
-      post :create, wishlist: attributes
+      post :create, params: { wishlist: attributes }
       expect(assigns(:wishlist).user).to eq user
     end
 
     context 'when the wishlist saves successfully' do
       it 'saves the new wishlist' do
         expect {
-          post :create, wishlist: attributes
+          post :create, params: { wishlist: attributes }
         }.to change(Spree::Wishlist, :count).by(1)
       end
 
       it 'redirects to the newly created wishlist' do
-        post :create, wishlist: attributes
+        post :create, params: { wishlist: attributes }
         expect(response).to redirect_to user.wishlists.last
       end
 
       it 'sets the attributes of @wishlist according to attributes' do
-        post :create, wishlist: attributes
+        post :create, params: { wishlist: attributes }
         attributes.each do |attr_name, value|
           expect(assigns(:wishlist).send(attr_name)).to eq value
         end
@@ -120,7 +120,7 @@ RSpec.describe Spree::WishlistsController, type: :controller do
     context 'when the wishlist fails to save' do
       it 'raise error' do
         expect {
-          post :create, wishlist: {}
+          post :create, params: { wishlist: {} }
         }.to raise_error
       end
     end
@@ -129,12 +129,12 @@ RSpec.describe Spree::WishlistsController, type: :controller do
   context '#destroy' do
     it 'destroys the requested wishlist' do
       expect {
-        delete :destroy, id: wishlist
+        delete :destroy, params: { id: wishlist }
       }.to change(Spree::Wishlist, :count).by(-1)
     end
 
     it 'redirects to the users account page' do
-      delete :destroy, id: wishlist
+      delete :destroy, params: { id: wishlist }
       expect(response).to redirect_to spree.account_path
     end
   end

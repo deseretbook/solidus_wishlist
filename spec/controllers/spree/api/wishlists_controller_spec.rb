@@ -99,7 +99,7 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
 
   context '#create' do
     it 'can create a new wishlist' do
-      post "/api/wishlists?token=#{user.spree_api_key}", {
+      post "/api/wishlists?token=#{user.spree_api_key}", params: {
         wishlist: {
           name: 'fathers day',
         },
@@ -110,7 +110,7 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
     end
 
     it 'must require a name to create a wishlist' do
-      post "/api/wishlists?token=#{user.spree_api_key}", {
+      post "/api/wishlists?token=#{user.spree_api_key}", params: {
         wishlist: {
           bad_name: 'fathers day',
         },
@@ -124,7 +124,7 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
       admin_user = create(:admin_user)
       admin_user.generate_spree_api_key!
 
-      post "/api/wishlists?user_id=#{user.id}&token=#{admin_user.spree_api_key}", {
+      post "/api/wishlists?user_id=#{user.id}&token=#{admin_user.spree_api_key}", params: {
         wishlist: {
           name: 'fathers day',
         },
@@ -139,7 +139,7 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
       not_admin_user = create(:user)
       not_admin_user.generate_spree_api_key!
 
-      post "/api/wishlists?user_id=#{user.id}&token=#{not_admin_user.spree_api_key}", {
+      post "/api/wishlists?user_id=#{user.id}&token=#{not_admin_user.spree_api_key}", params: {
         wishlist: {
           name: 'fathers day',
         },
@@ -159,7 +159,7 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
     end
 
     it 'must permit update wishlist name' do
-      put "/api/wishlists/#{user.wishlist.access_hash}?token=#{user.spree_api_key}", {
+      put "/api/wishlists/#{user.wishlist.access_hash}?token=#{user.spree_api_key}", params: {
         wishlist: {
           name: 'books',
         },
@@ -170,7 +170,7 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
     end
 
     it 'can not permit a user update update lists that not belong to him' do
-      put "/api/wishlists/#{user.wishlist.access_hash}?token=#{bad_user.spree_api_key}", {
+      put "/api/wishlists/#{user.wishlist.access_hash}?token=#{bad_user.spree_api_key}", params: {
         wishlist: {
           name: 'books',
         },
