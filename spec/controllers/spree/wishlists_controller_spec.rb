@@ -39,7 +39,7 @@ RSpec.describe Spree::WishlistsController, type: :controller do
       end
 
       it 'sets the attributes of @wishlist according to attributes' do
-        put :update, params: {  id: wishlist, wishlist: attributes }
+        put :update, params: { id: wishlist, wishlist: attributes }
         attributes.each do |attr_name, value|
           expect(assigns(:wishlist).send(attr_name)).to eq value
         end
