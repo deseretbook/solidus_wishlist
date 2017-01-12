@@ -10,8 +10,7 @@ module Spree
         respond_with(@wishlists)
       end
 
-      def new
-      end
+      def new; end
 
       def create
         authorize! :create, Spree::Wishlist

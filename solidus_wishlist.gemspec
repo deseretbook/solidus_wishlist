@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.version     = SolidusWishlist.version
   s.summary     = 'Add wishlists to Solidus'
   s.description = s.summary
-  s.required_ruby_version = '>= 2.1.0'
+  s.required_ruby_version = '>= 2.2.2'
 
   s.author      = 'John Dyer'
   s.email       = 'jdyer@spreecommerce.com'
@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.require_path  = 'lib'
   s.requirements << 'none'
 
-  s.add_runtime_dependency 'solidus_core', [">= 1.0.0", "< 2"]
+  s.add_runtime_dependency 'solidus_core', [">= 1.0.0", "< 3"]
 
   s.add_development_dependency 'factory_girl'
   s.add_development_dependency 'ffaker'
