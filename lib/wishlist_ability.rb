@@ -25,7 +25,7 @@ class WishlistAbility
     end
 
     # You can only change your own wishlist
-    can [:read, :move, :update, :edit, :destroy], Spree::Wishlist do |wishlist|
+    can %i[read move update edit destroy], Spree::Wishlist do |wishlist|
       wishlist.user == user
     end
 
@@ -35,7 +35,7 @@ class WishlistAbility
     end
 
     # You can only browse or change own wishlist product
-    can [:index, :update, :destroy], Spree::WishedProduct do |wished_product|
+    can %i[index update destroy], Spree::WishedProduct do |wished_product|
       wished_product.wishlist.user == user
     end
   end
