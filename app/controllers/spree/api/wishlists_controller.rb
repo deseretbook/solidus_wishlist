@@ -1,7 +1,7 @@
 module Spree
   module Api
     class WishlistsController < Spree::Api::BaseController
-      before_action :find_wishlist, only: [:destroy, :show, :update, :edit]
+      before_action :find_wishlist, only: %i[destroy show update edit]
 
       helper Spree::Wishlists::ApiHelpers
 
