@@ -47,7 +47,7 @@ RSpec.describe Spree::WishedProductsController, type: :controller do
         wishlist = create(:wishlist, user: user)
         wished_product = create(:wished_product, wishlist: wishlist, variant: variant)
         expect {
-          post :create, id: wished_product.id, params: { wished_product: { wishlist_id: wishlist.id, variant_id: variant.id } }
+          post :create, params: { id: wished_product.id, wished_product: { wishlist_id: wishlist.id, variant_id: variant.id } }
         }.to change(Spree::WishedProduct, :count).by(0)
       end
     end
