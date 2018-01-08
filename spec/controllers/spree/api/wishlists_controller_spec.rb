@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Spree::Api::WishlistsController, type: :request do
   let(:wishlist)   { create(:wishlist) }
   let(:user)       { wishlist.user }
@@ -14,7 +16,9 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
 
     it 'return a list of available attributes' do
       get "/api/wishlists/new?token=#{user.spree_api_key}"
+
       expect(response).to be_success
+      expect(response).to render_template 'spree/api/wishlists/new'
       expect(json['attributes'].length).to eq(5)
       expect(json['required_attributes'].length).to eq(1)
     end
@@ -73,6 +77,8 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
       not_admin_user = create(:user)
       not_admin_user.generate_spree_api_key!
       get "/api/wishlists?user_id=#{santa_claus.id}&token=#{not_admin_user.spree_api_key}&page=2&per_page=10"
+
+      expect(response).to render_template('spree/api/wishlists/index')
       expect(response).to be_success
       expect(json['total_count']).to eq 0
     end
@@ -85,7 +91,9 @@ RSpec.describe Spree::Api::WishlistsController, type: :request do
 
     it 'returns wish list details' do
       get "/api/wishlists/#{wishlist.access_hash}?token=#{user.spree_api_key}"
+
       expect(response).to be_success
+      expect(response).to render_template('spree/api/wishlists/show')
       expect(json['access_hash']).to                 eq wishlist.access_hash
       expect(json['id']).to                          eq wishlist.id
       expect(json['name']).to                        eq wishlist.name
