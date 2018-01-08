@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
 
   s.add_runtime_dependency 'solidus_core', [">= 1.0.0", "< 3"]
 
-  s.add_development_dependency 'factory_girl'
+  s.add_development_dependency 'factory_bot'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sqlite3'
@@ -36,5 +36,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'guard-rspec'
-  s.add_development_dependency 'pry-rails'
+  s.add_development_dependency 'byebug'
 end

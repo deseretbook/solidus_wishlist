@@ -1,6 +1,6 @@
 machine:
   environment:
-    SOLIDUS_BRANCH: v2.2
+    SOLIDUS_BRANCH: master
   ruby:
     version: 2.3.1
 
