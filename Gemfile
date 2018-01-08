@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-branch = ENV.fetch('SOLIDUS_BRANCH', 'v2.2')
+branch = ENV.fetch('SOLIDUS_BRANCH', 'v2.3')
 
 gem 'solidus', github: 'solidusio/solidus', branch: branch
 gem 'solidus_auth_devise', '~> 1.0'
