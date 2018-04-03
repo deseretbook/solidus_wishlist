@@ -9,7 +9,7 @@ module SolidusWishlist
 
   module VERSION
     MAJOR = 2
-    MINOR = 3
+    MINOR = 5
     TINY  = 0
     PRE   = nil
 
