@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Spree::WishlistsController, type: :controller do
   let(:wishlist)   { create(:wishlist) }
   let(:user)       { wishlist.user }
@@ -50,7 +52,7 @@ RSpec.describe Spree::WishlistsController, type: :controller do
       it 'raise error' do
         expect {
           put :update, params: { id: wishlist, wishlist: {} }
-        }.to raise_error
+        }.to raise_error ActionController::ParameterMissing
       end
     end
   end
@@ -121,7 +123,7 @@ RSpec.describe Spree::WishlistsController, type: :controller do
       it 'raise error' do
         expect {
           post :create, params: { wishlist: {} }
-        }.to raise_error
+        }.to raise_error ActionController::ParameterMissing
       end
     end
   end

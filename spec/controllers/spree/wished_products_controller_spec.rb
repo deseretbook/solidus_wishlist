@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 RSpec.describe Spree::WishedProductsController, type: :controller do
   let(:user) { create(:user) }
   let!(:wished_product) { create(:wished_product) }
@@ -54,7 +56,7 @@ RSpec.describe Spree::WishedProductsController, type: :controller do
 
     context 'with invalid params' do
       it 'raises error' do
-        expect { post :create }.to raise_error
+        expect { post :create }.to raise_error ActionController::ParameterMissing
       end
     end
   end
@@ -74,7 +76,7 @@ RSpec.describe Spree::WishedProductsController, type: :controller do
 
     context 'with invalid params' do
       it 'raises error' do
-        expect { put :update }.to raise_error
+        expect { put :update, params: { id: wished_product } }.to raise_error ActionController::ParameterMissing
       end
     end
   end
@@ -89,10 +91,6 @@ RSpec.describe Spree::WishedProductsController, type: :controller do
     it 'redirects to the wished_products list' do
       delete :destroy, params: { id: wished_product }
       expect(response).to redirect_to spree.wishlist_path(wished_product.wishlist)
-    end
-
-    it 'requires the :id parameter' do
-      expect { delete :destroy }.to raise_error
     end
   end
 end
